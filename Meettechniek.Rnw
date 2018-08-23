@@ -130,10 +130,76 @@ AF(df(x,y,z))=\sqrt{(3\frac{\sqrt{y}}{z^{3}}.2x.dx)^{2} + (3\frac{x^{2}}{z^{3}}.
 \subsection{Toepassing: berekening van de elasticiteitsmodulus bij buiging}
 
 \begin{equation}
-E=\dfrac{\Delta F.(L_{2}-L_{1}).L_{1}^{3}}{32.\Delta y \dfrac{bh^{3}}{12}}
+E=\dfrac{\Delta F.(L_{2}-L_{1}).L_{1}^{2}}{32.\Delta y \dfrac{bh^{3}}{12}}=\dfrac{\Delta F.\Delta L.L_{1}^{3}}{32.\Delta y \dfrac{bh^{3}}{12}}
 \end{equation}
 
+De verschillende parti\"ele afgeleiden zijn:
+\begin{itemize}
+  \item $\dfrac{\partial E}{\partial \Delta F}=\dfrac{\Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta F}$
+  \item $\dfrac{\partial E}{\partial \Delta L}=\dfrac{\Delta F . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta L}$
+  \item $\dfrac{\partial E}{\partial L_{1}}=\dfrac{2\Delta F . L_{1}}{32. \Delta y \dfrac{bh^{3}}{12} }=2\dfrac{E}{L_{1}}$
+  \item $\dfrac{\partial E}{\partial \Delta y}=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. (\Delta y)^{2} \dfrac{bh^{3}}{12} }=-\dfrac{E}{\Delta y}$
+  \item $\dfrac{\partial E}{\partial b}=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{b^{2}h^{3}}{12} }=-\dfrac{E}{b}$
+  \item $\dfrac{\partial E}{\partial h}=-3\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{4}}{12} }=-3\dfrac{E}{h}$
+\end{itemize}
 
+De gegevens van de absolute fouten van de verschillende metingen zijn:
+\begin{itemize}
+  \item $AF(F)=50N$ en dus is $AF(\Delta F)=100N$
+  \item $AF(L)=1mm$ en dus is $AF(\Delta L)=2mm$
+  \item $AF(b)=0,01mm$
+  \item $AF(h)=0,01mm$
+  \item $AF(\Delta y)=0,001mm$
+\end{itemize}
+
+<<>>=
+L1 <- 240
+L2 <- 460
+b <- 50.14
+h <- 9.88
+cnst <- ((L2-L1)*L1^2)/((32*b*h^3)/12)
+Meetwaarden <- data.frame(nr=seq(1:8), 
+                          F1=c(962, 957, 970, 972, 956, 968, 958, 978),
+                          F2=c(5045, 5047, 5037, 5032, 5048, 5033, 5046, 5036),
+                          delta_y=c(1.839, 1.841, 1.832, 1.830, 1.843, 1.839, 1.841, 1.833))
+Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+# Foutentermen
+# Meetfouten
+D.delta_F <- 100
+D.delta_L <- 2
+D.L<- 1
+D.b <- 0.01
+D.h <- 0.01
+D.delta_y = 0.001
+Meetwaarden %>% mutate(foutkracht = ((E/(F2-F1))*D.delta_F)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(foutdeltaL = ((E/(L2-L1))*D.delta_L)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(foutL1 = ((2*E/L1)*D.L)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(foutdeltay = ((-E/delta_y)*D.delta_y)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(foutb = ((-E/b)*D.b)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(fouth = ((-3*E/h)*D.b)^2)  -> Meetwaarden
+Meetwaarden %>% mutate(foutE = sqrt(foutkracht + foutdeltaL + foutL1 + foutdeltay + foutb + fouth))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.kracht = round(100*foutkracht/(foutE^2),2))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.deltaL = round(100*foutdeltaL/(foutE^2),2))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.L1 = round(100*foutL1/(foutE^2),2))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.deltay = round(100*foutdeltay/(foutE^2),2))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.b = round(100*foutb/(foutE^2),2))  -> Meetwaarden
+Meetwaarden %>% mutate(perc.h = round(100*fouth/(foutE^2),2))  -> Meetwaarden
+Meetwaarden
+# Betrouwbaarheidsinterval voor E
+Ebar <- mean(Meetwaarden$E)
+Evar <- var(Meetwaarden$E)
+saccent <- sqrt(Evar)
+alfa <- 0.05
+n <- nrow(Meetwaarden)
+t0 <- qt(1-alfa/2,n-1)
+se <- saccent/sqrt(n)
+Elow <- Ebar - t0*se
+Ehigh <- Ebar + t0*se
+t0*se
+Elow
+Ebar
+Ehigh
+@
 
 \newpage
 \textbf{Thanks} \\
