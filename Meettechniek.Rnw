@@ -88,11 +88,10 @@ JT.theme <- theme(panel.border = element_rect(fill = NA, colour = "gray10"),
 \chapter*{Meettechniek}
 
 \mainmatter
+\chapter{Foutentheorie}
 
-
-\section{Meettechniek: foutentheorie}
-
-\subsection{Algemene formule}
+\section{Algemeen}
+\subsection{Definitie}
 
 Wanneer we een functie $f(x,y,z)$ hebben in meerdere veranderlijken dan kunnen we schrijven dat:
 
@@ -105,6 +104,9 @@ De absolute fout op $f(x,y,z)$ defin\"eren we dan als:
 AF(f(x,y,z)=\sqrt{(\frac{\partial}{\partial x}f(x,y,z))^{2}dx^{2} + (\frac{\partial}{\partial y}f(x,y,z))^{2}dy^{2} + (\frac{\partial}{\partial z}f(x,y,z))^{2}dz^{2}}
 \end{equation}
 
+We nemen de vierkantwortel uit de som van de kwadraten wanneer de variabelen $x, y, z$ \emph{onafhankelijk} zijn van elkaar. Als $x$ bij voorbeeld een temperatuur is gemeten met een thermokoppel, en $y$ is een lengte gemeten met een micrometer dan is er geen reden om aan te nemen dat de fout die we maken bij de meting met het thermokoppel van invloed zou kunnen zijn op de fout bij de lengtemeting.
+
+\newpage
 \subsection{Enkele voorbeelden}
 
 \newthought{De som en verschil} van twee veranderlijken: $f(x,y)= x \pm y$
@@ -127,31 +129,15 @@ AF(df(x,y))=\sqrt{y^{2}.dx^{2} + x^{2}.dy^{2}}
 AF(df(x,y,z))=\sqrt{(3\frac{\sqrt{y}}{z^{3}}.2x.dx)^{2} + (3\frac{x^{2}}{z^{3}}.\frac{1}{2}\frac{1}{\sqrt{y}}.dy)^{2} + (3x^{2}\sqrt{y}.(-3\frac{1}{z^{4}}).dz)^{2}}
 \end{equation}
 
-\subsection{Toepassing: berekening van de elasticiteitsmodulus bij buiging}
+\section{Toepassing}
 
+\subsection{Elasticiteitsmodulus bij buiging}
 \begin{equation}
 E=\dfrac{\Delta F.(L_{2}-L_{1}).L_{1}^{2}}{32.\Delta y \dfrac{bh^{3}}{12}}=\dfrac{\Delta F.\Delta L.L_{1}^{3}}{32.\Delta y \dfrac{bh^{3}}{12}}
+\label{eq:elasticiteitsmodulus}
 \end{equation}
 
-De verschillende parti\"ele afgeleiden zijn:
-\begin{itemize}
-  \item $\dfrac{\partial E}{\partial \Delta F}=\dfrac{\Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta F}$
-  \item $\dfrac{\partial E}{\partial \Delta L}=\dfrac{\Delta F . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta L}$
-  \item $\dfrac{\partial E}{\partial L_{1}}=\dfrac{2\Delta F . L_{1}}{32. \Delta y \dfrac{bh^{3}}{12} }=2\dfrac{E}{L_{1}}$
-  \item $\dfrac{\partial E}{\partial \Delta y}=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. (\Delta y)^{2} \dfrac{bh^{3}}{12} }=-\dfrac{E}{\Delta y}$
-  \item $\dfrac{\partial E}{\partial b}=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{b^{2}h^{3}}{12} }=-\dfrac{E}{b}$
-  \item $\dfrac{\partial E}{\partial h}=-3\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{4}}{12} }=-3\dfrac{E}{h}$
-\end{itemize}
-
-De gegevens van de absolute fouten van de verschillende metingen zijn:
-\begin{itemize}
-  \item $AF(F)=50N$ en dus is $AF(\Delta F)=100N$
-  \item $AF(L)=1mm$ en dus is $AF(\Delta L)=2mm$
-  \item $AF(b)=0,01mm$
-  \item $AF(h)=0,01mm$
-  \item $AF(\Delta y)=0,001mm$
-\end{itemize}
-
+De meetresultaten zijn:
 <<>>=
 L1 <- 240
 L2 <- 460
@@ -162,44 +148,92 @@ Meetwaarden <- data.frame(nr=seq(1:8),
                           F1=c(962, 957, 970, 972, 956, 968, 958, 978),
                           F2=c(5045, 5047, 5037, 5032, 5048, 5033, 5046, 5036),
                           delta_y=c(1.839, 1.841, 1.832, 1.830, 1.843, 1.839, 1.841, 1.833))
+@
+
+Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa):
+<<>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
-# Foutentermen
-# Meetfouten
+Meetwaarden
+@
+
+\subsection{Foutenberekening}
+
+De verschillende parti\"ele afgeleiden zijn:
+\begin{equation}
+  \begin{split}
+    \dfrac{\partial E}{\partial \Delta F}&=\dfrac{\Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta F} \\
+    \dfrac{\partial E}{\partial \Delta L}&=\dfrac{\Delta F . L_{1}^{2}}{32. \Delta y \dfrac{bh^{3}}{12} }=\dfrac{E}{\Delta L} \\
+    \dfrac{\partial E}{\partial L_{1}}&=\dfrac{2\Delta F . L_{1}}{32. \Delta y \dfrac{bh^{3}}{12} }=2\dfrac{E}{L_{1}} \\
+    \dfrac{\partial E}{\partial \Delta y}&=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. (\Delta y)^{2} \dfrac{bh^{3}}{12} }=-\dfrac{E}{\Delta y} \\
+    \dfrac{\partial E}{\partial b}&=-\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{b^{2}h^{3}}{12} }=-\dfrac{E}{b} \\
+    \dfrac{\partial E}{\partial h}&=-3\dfrac{\Delta F . \Delta L . L_{1}^{2}}{32. \Delta y \dfrac{bh^{4}}{12} }=-3\dfrac{E}{h}
+  \end{split}
+\label{eq:partieel}
+\end{equation}
+
+De gegevens van de absolute fouten van de verschillende meettoestellen zijn:
+\begin{itemize}
+  \item $AF(F)=50N$ en dus is $AF(\Delta F)=100N$
+  \item $AF(L)=1mm$ en dus is $AF(\Delta L)=2mm$
+  \item $AF(b)=0,01mm$
+  \item $AF(h)=0,01mm$
+  \item $AF(\Delta y)=0,001mm$
+\end{itemize}
+
+<<>>=
+# Absolute fouten van de meettoestellen
 D.delta_F <- 100
 D.delta_L <- 2
 D.L<- 1
 D.b <- 0.01
 D.h <- 0.01
 D.delta_y = 0.001
-Meetwaarden %>% mutate(foutkracht = ((E/(F2-F1))*D.delta_F)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(foutdeltaL = ((E/(L2-L1))*D.delta_L)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(foutL1 = ((2*E/L1)*D.L)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(foutdeltay = ((-E/delta_y)*D.delta_y)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(foutb = ((-E/b)*D.b)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(fouth = ((-3*E/h)*D.b)^2)  -> Meetwaarden
-Meetwaarden %>% mutate(foutE = sqrt(foutkracht + foutdeltaL + foutL1 + foutdeltay + foutb + fouth))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.kracht = round(100*foutkracht/(foutE^2),2))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.deltaL = round(100*foutdeltaL/(foutE^2),2))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.L1 = round(100*foutL1/(foutE^2),2))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.deltay = round(100*foutdeltay/(foutE^2),2))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.b = round(100*foutb/(foutE^2),2))  -> Meetwaarden
-Meetwaarden %>% mutate(perc.h = round(100*fouth/(foutE^2),2))  -> Meetwaarden
-Meetwaarden
-# Betrouwbaarheidsinterval voor E
-Ebar <- mean(Meetwaarden$E)
-Evar <- var(Meetwaarden$E)
-saccent <- sqrt(Evar)
-alfa <- 0.05
-n <- nrow(Meetwaarden)
-t0 <- qt(1-alfa/2,n-1)
-se <- saccent/sqrt(n)
-Elow <- Ebar - t0*se
-Ehigh <- Ebar + t0*se
-t0*se
-Elow
-Ebar
-Ehigh
+# Kwadraten van de deelfouten
+Fouten <- data.frame(deltaF=rep(0,8), deltaL=rep(0,8), L1=rep(0,8), deltay=rep(0,8), 
+                     b=rep(0,8), h=rep(0,8), Totaal=rep(0,8), Abs.fout.E=rep(0,8))
+Fouten$deltaF <- ((Meetwaarden$E/(Meetwaarden$F2 - Meetwaarden$F1))*D.delta_F)^2
+Fouten$deltaL <- ((Meetwaarden$E/(L2 - L1))*D.delta_L)^2
+Fouten$L1 <- ((2*Meetwaarden$E/L1)*D.L)^2
+Fouten$deltay <- ((-Meetwaarden$E/Meetwaarden$delta_y)*D.delta_y)^2
+Fouten$b <- ((-Meetwaarden$E/b)*D.b)^2
+Fouten$h <- ((-3*Meetwaarden$E/h)*D.h)^2
+Fouten$Totaal <- Fouten$deltaF + Fouten$deltaL + Fouten$L1 +
+                Fouten$deltay + Fouten$b + Fouten$h
+Fouten$Abs.fout.E <- sqrt(Fouten$Totaal)
+Fouten
 @
+
+De gemiddelde absolute fout is: $\Sexpr{round(mean(Fouten$Abs.fout.E),3)}GPa$.
+
+\textbf{Op basis van deze metingen zou mijn conclusie zijn dat}
+$E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$
+
+\subsection{Procentuele verdeling van de meetfouten}
+Je kan nu gemakkelijk zien welke fouten het meeste invloed hebben door de procentuele verdeling van de totale fout (kwadraat) over de verschillende foutonderdelen te berekenen:
+<<>>=
+Perc <- data.frame(p.deltaF=rep(0,8), p.deltaL=rep(0,8), 
+                   p.L1=rep(0,8), p.deltay=rep(0,8), 
+                   p.b=rep(0,8), p.h=rep(0,8))
+Perc$p.deltaF <- round(100*Fouten$deltaF/Fouten$Totaal,2)
+Perc$p.deltaL <- round(100*Fouten$deltaL/Fouten$Totaal,2)
+Perc$p.L1 <- round(100*Fouten$L1/Fouten$Totaal,2)
+Perc$p.deltay <- round(100*Fouten$deltay/Fouten$Totaal,2)
+Perc$p.b <- round(100*Fouten$b/Fouten$Totaal,2)
+Perc$p.h <- round(100*Fouten$h/Fouten$Totaal,2)
+Perc
+@
+
+\textbf{Het overgrote deel (bijna 80\%) van de meetfout is afkomstig van de meting van de krachten.}
+
+\section{Nog resterende vragen}
+
+\begin{enumerate}
+  \item Geeft dat interval de absolute zekerheid dat de waarheid daar binnen ligt? (betrouwbaarheid 100\%)?
+  \item Wat is het verband tussen de meetfout en de variantie van de meetresultaten?
+  \item Is de kansverdeling binnen het berekende interval uniform? normaal? iets anders?
+  \item In het algemeen: band tussen meetfouten en statistiek
+\end{enumerate}
+
 
 \newpage
 \textbf{Thanks} \\
