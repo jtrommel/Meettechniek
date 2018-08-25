@@ -225,6 +225,64 @@ Perc
 
 \textbf{Het overgrote deel (bijna 80\%) van de meetfout is afkomstig van de meting van de krachten.}
 
+\section{Meetwaarden met gepaste beduidende cijfers}
+
+De meetresultaten, met gepaste beduidende cijfers, zijn:
+<<>>=
+L1 <- 240 # rel.ft = 0.4%  dus 3BC
+L2 <- 460 # rel.ft = 0.2%  dus 3BC
+b <- 50.14 # rel.ft = 0.02%  dus 4BC
+h <- 9.88 #rel.ft = 0.1%  dus 3BC
+cnst <- ((L2-L1)*L1^2)/((32*b*h^3)/12)
+# F1: rel.ft = 5%  dus 2BC
+# F2: rel.ft = 1%  dus 3BC
+# delta_y : rel.ft = 0.5%  dus 3BC
+Meetwaarden <- data.frame(nr=seq(1:8), 
+                          F1=c(0.96e03, 0.96e03, 0.97e03, 0.97e03, 
+                               0.96e03, 0.97e03, 0.96e03, 0.98e03),
+                          F2=c(5.05e03, 5.05e03, 5.04e03, 5.03e03, 
+                               5.05e03, 5.03e03, 5.05e03, 5.04e03),
+                          delta_y=c(1.84, 1.84, 1.83, 1.83, 
+                                    1.84, 1.84, 1.84, 1.83))
+@
+
+Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa). Aangezien het aantal beduidende cijfers voor $F_{1}$ gelijk is aan 2, kan het aantal beduidende cijfers voor $E$ ook maar 2 zijn.
+<<>>=
+Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+Meetwaarden
+@
+
+\textbf{E=0.22e03 GPa}
+<<echo=FALSE>>=
+# Absolute fouten van de meettoestellen
+D.delta_F <- 100
+D.delta_L <- 2
+D.L<- 1
+D.b <- 0.01
+D.h <- 0.01
+D.delta_y = 0.001
+# Kwadraten van de deelfouten
+Fouten <- data.frame(deltaF=rep(0,8), deltaL=rep(0,8), L1=rep(0,8), deltay=rep(0,8), 
+                     b=rep(0,8), h=rep(0,8), Totaal=rep(0,8), Abs.fout.E=rep(0,8))
+Fouten$deltaF <- ((Meetwaarden$E/(Meetwaarden$F2 - Meetwaarden$F1))*D.delta_F)^2
+Fouten$deltaL <- ((Meetwaarden$E/(L2 - L1))*D.delta_L)^2
+Fouten$L1 <- ((2*Meetwaarden$E/L1)*D.L)^2
+Fouten$deltay <- ((-Meetwaarden$E/Meetwaarden$delta_y)*D.delta_y)^2
+Fouten$b <- ((-Meetwaarden$E/b)*D.b)^2
+Fouten$h <- ((-3*Meetwaarden$E/h)*D.h)^2
+Fouten$Totaal <- Fouten$deltaF + Fouten$deltaL + Fouten$L1 +
+                Fouten$deltay + Fouten$b + Fouten$h
+Fouten$Abs.fout.E <- sqrt(Fouten$Totaal)
+@
+<<>>=
+Fouten$Abs.fout.E
+@
+
+De absolute fout met 2 beduidende cijfers is dus \textbf{6.0 GPa}, afgerond \textbf{0.01e03 GPa}.
+
+Conclusie \textbf{E=0.22e03 $\pm$ 0.01e03 GPa}
+
+
 \section{Nog resterende vragen}
 
 \begin{enumerate}
