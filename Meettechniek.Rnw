@@ -90,21 +90,101 @@ JT.theme <- theme(panel.border = element_rect(fill = NA, colour = "gray10"),
 \mainmatter
 \chapter{Foutentheorie}
 
-\section{Algemeen}
-\subsection{Definitie}
+\section{Werken met fouten}
+\subsection{Kenmerken van meettoestellen}
 
-Wanneer we een functie $f(x,y,z)$ hebben in meerdere veranderlijken dan kunnen we schrijven dat:
+Meettoestellen zijn niet perfect. Er kunnen tal van redenen zijn waarom de gemeten waarde afwijkt van de re\"ele waarde en we groeperen deze redenen meestal in \emph{systematische} fouten en \emph{toevallige} fouten. De kwaliteit van een meettoestel wordt meestal gegeven als een \emph{klasse}. Dit getal is een percentage. Toegepast op het meetbereik van het toestel geeft het de \emph{absolute} fout op een meting\sidenote{Dit wordt ook aangegeven als \% FS waarbij FS slaat op ''Full Scale"}. De (onbekende) exacte waarde ligt dan in het interval $[meetwaarde-abs.ft , meetwaarde +abs.ft]$.\sidenote{Bij elk meettoestel wordt aangegeven hoe je de absolute fout moet berekenen. Soms is het een percentage van de afgelezen waarde: \% rdg waarbij rdg slaat op ''reading". Soms zegt men dat men beide moet combineren: bv. 1\% FS + 2,5\% rdg}
 
+Een voorbeeld: een voltmeter met klasse 0,5 zal in het meetbereik 300V een absolute fout hebben gelijk aan $\dfrac{0,5}{100}300=1,5V$. In het meetbereik 60V is de absolute fout $\dfrac{0,5}{100}60=0,3V$. Wanneer we in het meetbereik van 300V een meting doen en de naald staat op 230V dan noteren we dit als $230 \pm 1,5V$. Een meetwaarde van 53V in het meetbereik van 60V, wordt genoteerd als $53 \pm 0,3V$. \sidenote{Uit dit voorbeeld blijkt dat het altijd best is om je meetbereik zo klein  mogelijk te kiezen. Je kan namelijk perfect de spanning van 53V meten in het meetbereik 300V. Maar je resultaat wordt dan: $53 \pm 1,5V$, wat aanzienlijk onnauwkeuriger is dan bij de meting in meetbereik 60V}
+
+\subsection{Noteren van meetresultaten: beduidende cijfers}
+Wanneer men een meetwaarde noteert samen met de foutenmarge, dan wordt het onmiddellijk duidelijk dat sommige notaties geen zin hebben. We kunnen bij voorbeeld een digitale voltmeter aflezen met drie cijfers na de komma ($53,067V$), maar als we daar de foutenmarge bij vermelden ($53,067V \pm 0,9V$) dan is het duidelijk dat de drie cijfers na de komma geen betekenis hebben. (Afgerond) is onze foutenmarge ongeveer 1V zodat het eerlijker is om te schrijven $53 \pm 1V$. Dat ziet er minder indrukwekkend uit dan $53,067$, maar het geeft een realistisch beeld en dat is voor de ingenieur en haar klant belangrijker.
+
+Het juist noteren van een meetresultaat gebeurt door het gebruik van \emph{beduidende cijfers}. De naam zegt het zelf: we beperken ons tot die cijfers die iets zinvol betekenen. Het regels om het aantal beduidende cijfers te gebruiken zijn eenvoudig en ze laten ook wat ruimte tot keuze. De basis is de \emph{relatieve fout}. Dit is de verhouding van de \emph{absolute fout} tot de \emph{meetwaarde}. Bij voorbeeld: bij de meting van 230V in het meetbereik van 300V met een klasse 0,5 FS voltmeter, is de absolute fout 1,5V en de relatieve fout $\dfrac{1,5}{230}=0,0065... \approx 1\%$. Bij de meting van 53V in het meetbereik 60V, klasse 0,5 FS is de absolute fout 0,3V en de relatieve fout $\dfrac{0,3}{53}=0,0094... \approx 1\%$. De vuistregels voor het bepalen van het aantal \emph{beduidende cijfers} zijn\sidenote{Meest voorkomende situaties}:
+\begin{itemize}
+  \item relatieve fout tussen 0,001\% en 0,01\%: 5 beduidende cijfers
+  \item relatieve fout tussen 0,01\% en 0,1\%: 4 beduidende cijfers
+  \item relatieve fout tussen 0,1\% en 1\%: 3 beduidende cijfers
+  \item relatieve fout tussen 1\% en 10\%: 2 beduidende cijfers
+\end{itemize}
+
+Alle cijfers \textbf{behalve voorafgaande nullen} zijn beduidend: 27,64 heeft vier beduidende cijfers; 2,531 heeft er vier; 0,119 heeft er drie; en 0,021 heeft er twee. Bij getallen met een komma worden \textbf{afsluitende nullen} als beduidend gezien: 4700,0; 271,00 en 15,210 hebben allemaal vijf significante cijfers. 
+
+Er stelt zich dan een probleem met getallen zonder komma die eindigen op \'e\'en of meerdere nullen. Wanneer we 231V schrijven is het duidelijk dat we die laatste 1V als beduidend beschouwen. Maar wanneer we 230V schrijven is het niet altijd duidelijk of we die laatste ''0" als beduidende beschouwen. Dat kunnen we ondubbelzinnig duidelijk maken door gebruik te maken van de wetenschappelijke notatie. Bij de meting van 230V was onze relatieve fout $0,0065=0,65\%$. Dat betekent dat we gaan werken met 3 beduidende cijfers. Dan noteren we onze meetwaarde als $0,230.10^{3}=0,230kV$\sidenote{De regels voor het aantal beduidende cijfers zeggen ons dat 0,230 3 beduidende cijfers heeft}. De notatie met foutenmarge wordt dan: $0,230.10^{3} \pm 0,02.10^{3} kV$\sidenote{De absolute fout van 1,5V wordt afgerond op 2V omdat het minst beduidende cijfer van het resulaat in Volt is} 
+
+\subsection{Rekenen met meetresultaten die een foutenmarge hebben}
+Wanneer je meetgegevens, die een bepaalde foutenmarge hebben, gaat gebruiken bij berekeningen dan is de vraag wat de fout is op de berekende waarde. Bij een som is dat duidelijk: als je eerste meetwaarde $x_{1}=100 \pm 1cm$ is dan ligt de ware lengte in het interval $[99cm, 101cm]$. Als de tweede meetwaarde $x_{2}=54 \pm 1cm$ is, dan is het interval $[53cm, 55cm]$. Het is mogelijk dat de ware waarde telkens het minimum is: 99cm en 53cm. Dan is de echte waarde van de som: 152cm. Maar het is ook mogelijk dat de ware waarde in beide gevallen het maximum is: 101cm en 55 cm. Dan is de echte waarde van de som: 156cm. Het interval van de som moet dus gelijk zijn aan $[152cm 156cm]$, of anders gezegd: de absolute fout op de som (2cm) is gelijk aan de som van de absolute fouten van de termen $x_{1}$ en $x_{2}$:
 \begin{equation}
-df(x,y,z)=\frac{\partial}{\partial x}f(x,y,z)dx + \frac{\partial}{\partial y}f(x,y,z)dy + \frac{\partial}{\partial z}f(x,y,z)dz
+  AF[x_{1}+x_{2}]=AF[x_{1}]+AF[x_{2}]
 \end{equation}
 
-De absolute fout op $f(x,y,z)$ defin\"eren we dan als:
+Voor het verschil $x_{1}-x_{2}$ mag je \textbf{NIET} automatisch besluiten dat
 \begin{equation}
-AF(f(x,y,z)=\sqrt{(\frac{\partial}{\partial x}f(x,y,z))^{2}dx^{2} + (\frac{\partial}{\partial y}f(x,y,z))^{2}dy^{2} + (\frac{\partial}{\partial z}f(x,y,z))^{2}dz^{2}}
+  AF[x_{1}-x_{2}]=AF[x_{1}]-AF[x_{2}]
 \end{equation}
 
-We nemen de vierkantwortel uit de som van de kwadraten wanneer de variabelen $x, y, z$ \emph{onafhankelijk} zijn van elkaar. Als $x$ bij voorbeeld een temperatuur is gemeten met een thermokoppel, en $y$ is een lengte gemeten met een micrometer dan is er geen reden om aan te nemen dat de fout die we maken bij de meting met het thermokoppel van invloed zou kunnen zijn op de fout bij de lengtemeting.
+Het zou kunnen dat de eerste meting het minimum geeft (99cm), de tweede meetwaarde het maximum (55cm) met als verschil 44cm. Maar het kan ook dat de eerste meting het maximum geeft (101 cm) en de tweede het minimum (53 cm) met als verschil 48 cm. Het interval voor het verschil is dus $[44cm, 48 cm]$ met als absolute fout 2cm. Bij de bewerking ''verschil" blijft de formule:
+
+\begin{equation}
+  AF[x_{1}-x_{2}]=AF[x_{1}]+AF[x_{2}]
+\end{equation}
+
+Zo zijn er ook rekenregels opgesteld voor de andere basisbewerkingen ''vermenigvuldiging" en ''deling". Daar werken we met de relatieve fouten en de samenvatting is:
+\begin{equation}
+\begin{split}
+  RF[x_{1}*x_{2}]&=RF[x_{1}]+RF[x_{2}] \\
+  RF[x_{1}/x_{2}]&=RF[x_{1}]+RF[x_{2}]
+\end{split}
+\end{equation}
+
+Maar wat moeten we doen bij andere functies: $e^{x}$, $\cos(x)$, ... Telkens aparte rekenregels afleiden wordt snel onoverzichtelijk. De statistiek geeft een alternatief.
+
+\subsection{Statistische behandeling van meetresultaten en foutenmarges}
+
+In de voorbeelden van de bewerkingen ''som" en ''verschil" werd gezegd: ''Het zou kunnen gebeuren dat de eerste meting het minimum van het interval als resultaat geeft, en de tweede meting het maximum". De uitdrukking ''Het zou kunnen gebeuren" wijst erop dat de meetwaarden $x_{1}$ en $x_{2}$ kunnen beschouwd worden als toevalsveranderlijken waarvan de waarden gelegen zijn in het interval bepaald door de meetwaarde en de absolute fout.\sidenote{Hoe de kansverdeling er binnen dat interval uitziet komt hier niet ter sprake}
+
+Een toevalsveranderlijke $X$ met een kansverdeling $f(X)$ heeft een gemiddelde waarde $E(X)$ en een variantie $var(X)$. Binnen de statistiek zijn rekenregels afgeleid die we kunnen toepassingen wanneer we bewerkingen doen. Een belangrijk regel is dat:
+
+\begin{itemize}
+\item wanneer toevalsveranderlijke $X_{1}$ een gemiddelde waarde $E(X_{1})=\mu_{1}$ heeft en een variantie $var(X_{1})=\sigma_{1}^{2}$
+\item en toevalsveranderlijke $X_{2}$ een gemiddelde waarde $E(X_{2})=\mu_{2}$ heeft en een variantie $var(X_{2})=\sigma_{2}^{2}$
+\item dan heeft de toevalsveranderlijke $Y=c_{1}X_{1}+c_{2}X_{2}$ een gemiddelde waarde en een variantie gelijk aan:
+\begin{equation}
+\begin{split} 
+  E(Y)&=c_{1}\mu_{1}+c_{2}\mu_{2}\\
+  var(Y)&=c_{1}^{2}\sigma_{1}^{2}+c_{2}^{2}\sigma_{2}^{2}+2c_{1}c_{2}\sigma_{12}
+\end{split}
+\end{equation}
+\end{itemize}
+
+De laatste term bevat $\sigma_{12}$. Dit is de co-variantie van $X_{1}$ en $X_{2}$. Indien de kansveranderlijken $X_{1}$ en $X_{2}$ \emph{onafhankelijk} zijn, dan is de covariantie gelijk aan nul en wordt de formule voor de variantie van de lineaire combinatie:
+\begin{equation}
+  var(Y)=c_{1}^{2}\sigma_{1}^{2}+c_{2}^{2}\sigma_{2}^{2}
+\end{equation}
+
+Door het gebruik van de constanten $c_{1}$ en $c_{2}$ is deze formule veel algemener: indien $c_{1}=1$ en $c_{2}=1$ dan is $Y=X_{1}+X_{2}$ (de som), en met $c_{1}=1$ en $c_{2}=-1$ dan is $Y=X_{1}-X_{2}$ (het verschil). 
+
+Maar het belang is veel groter dan dat! Onder passende omstandigheden kunnen we een functie in twee variabelen $x_{1}$ en $x_{2}$ in de omgeving van een punt $(x_{1}=x_{1,0}, x_{2}=x_{2,0})$ benaderen door haar eerste orde Taylor-reeksontwikkeling:
+\begin{equation}
+f(x_{1},x_{2}) \approx f(x_{1,0},x_{2,0}) + \dfrac{\partial f}{\partial x_{1}}(x_{1,0},x_{2,0}).dx_{1} + \dfrac{\partial f}{\partial x_{2}}(x_{1,0},x_{2,0}).dx_{2}
+\end{equation}
+
+of
+\begin{equation}
+df(x_{1},x_{2}) \approx  \dfrac{\partial f}{\partial x_{1}}(x_{1,0},x_{2,0}).dx_{1} + \dfrac{\partial f}{\partial x_{2}}(x_{1,0},x_{2,0}).dx_{2}
+\end{equation}
+
+Dit zegt dat de absolute fout van $f(x_{1},x_{2})$ een lineaire combinatie is van het type $Y=c_{1}X_{1}+c_{2}X_{2}$, waarbij de constanten $c_{1}$ en $c_{2}$ de parti\"ele afgeleiden zijn. Wanneer de toevalsveranderlijken $X_{1}$ en $X_{2}$ onafhankelijk zijn dan is de variantie van $f(x_{1},x_{2})$ in de buurt van het punt $(x_{1}=x_{1,0}, x_{2}=x_{2,0})$ benaderend gelijk aan:
+\begin{equation}
+var(f(x_{1},x_{2}))=\frac{\partial f}{\partial x_{1}}(x_{1,0},x_{2,0})^{2}.dx_{1}^{2} + \frac{\partial f}{\partial x_{2}}(x_{1,0},x_{2,0})^{2}.dx_{2}^{2}
+\end{equation}
+
+en de absolute fout de wortel uit de variantie:
+\begin{equation}
+AF(f(x_{1},x_{2}))=\sqrt{(\frac{\partial f}{\partial x_{1}}(x_{1,0},x_{2,0})^{2}.dx_{1}^{2} + \frac{\partial f}{\partial x_{2}}(x_{1,0},x_{2,0})^{2}.dx_{2}^{2}}
+\end{equation}
+
+Als $X_{1}$ bij voorbeeld een temperatuur is gemeten met een thermokoppel, en $X_{2}$ is een lengte gemeten met een micrometer dan is er geen reden om aan te nemen dat de fout die we maken bij de meting met het thermokoppel van invloed zou kunnen zijn op de fout bij de lengtemeting. Ze zijn onafhankelijk van elkaar.
 
 \newpage
 \subsection{Enkele voorbeelden}
@@ -151,8 +231,11 @@ Meetwaarden <- data.frame(nr=seq(1:8),
 @
 
 Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa):
-<<>>=
+<<echo=FALSE>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+@
+
+<<>>=
 Meetwaarden
 @
 
@@ -180,7 +263,7 @@ De gegevens van de absolute fouten van de verschillende meettoestellen zijn:
   \item $AF(\Delta y)=0,001mm$
 \end{itemize}
 
-<<>>=
+<<echo=FALSE>>=
 # Absolute fouten van de meettoestellen
 D.delta_F <- 100
 D.delta_L <- 2
@@ -200,12 +283,15 @@ Fouten$h <- ((-3*Meetwaarden$E/h)*D.h)^2
 Fouten$Totaal <- Fouten$deltaF + Fouten$deltaL + Fouten$L1 +
                 Fouten$deltay + Fouten$b + Fouten$h
 Fouten$Abs.fout.E <- sqrt(Fouten$Totaal)
+@
+
+<<>>=
 Fouten
 @
 
 De gemiddelde absolute fout is: $\Sexpr{round(mean(Fouten$Abs.fout.E),3)}GPa$.
 
-\textbf{Op basis van deze metingen zou mijn conclusie zijn dat}
+\textbf{Op basis van deze metingen zou de conclusie kunnen zijn dat}
 $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$
 
 \subsection{Procentuele verdeling van de meetfouten}
@@ -227,8 +313,19 @@ Perc
 
 \section{Meetwaarden met gepaste beduidende cijfers}
 
-De meetresultaten, met gepaste beduidende cijfers, zijn:
-<<>>=
+Onze conclusie was dat $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$. Maar we hebben gezien dat dit aantal decimalen een onjuiste indruk van nauwkeurigheid geeft. Eigenlijk moeten we werken met de meetresulaten \textbf{met de gepaste beduidende cijfers}. Hoeveel beduidende cijfers we voor elke meetwaarde in rekening brengen hangt af van de relatieve fout op de meting:
+
+\begin{tabular}{r r r r r r}
+variabele & meetwaarde & abs.fout & rel.fout & beduidende cijfers & notering \\
+L1 & 240mm & 1mm & 0,4\% & 3 & 0,240m \\
+L2 & 460mm & 1mm & 0,2\% & 3 & 0,460m \\
+b & 50,14mm & 0,01mm & 0,02\% & 4 & 50,14mm \\
+h & 9,88mm & 0,01mm & 0,1\% & 3 & 9,88mm \\
+F1 & 962N & 50N & 5\% & 2 & 0,96kN \\
+F2 & 5045N & 50N & 1\% & 3 & 5,05kN
+\end{tabular}
+
+<<echo=FALSE>>=
 L1 <- 240 # rel.ft = 0.4%  dus 3BC
 L2 <- 460 # rel.ft = 0.2%  dus 3BC
 b <- 50.14 # rel.ft = 0.02%  dus 4BC
@@ -247,12 +344,13 @@ Meetwaarden <- data.frame(nr=seq(1:8),
 @
 
 Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa). Aangezien het aantal beduidende cijfers voor $F_{1}$ gelijk is aan 2, kan het aantal beduidende cijfers voor $E$ ook maar 2 zijn.
-<<>>=
+<<echo=FALSE>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+@
+<<>>=
 Meetwaarden
 @
 
-\textbf{E=0.22e03 GPa}
 <<echo=FALSE>>=
 # Absolute fouten van de meettoestellen
 D.delta_F <- 100
