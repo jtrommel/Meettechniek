@@ -101,6 +101,8 @@ Een voorbeeld: een voltmeter met klasse 0,5 zal in het meetbereik 300V een absol
 Wanneer men een meetwaarde noteert samen met de foutenmarge, dan wordt het onmiddellijk duidelijk dat sommige notaties geen zin hebben. We kunnen bij voorbeeld een digitale voltmeter aflezen met drie cijfers na de komma ($53,067V$), maar als we daar de foutenmarge bij vermelden ($53,067V \pm 0,9V$) dan is het duidelijk dat de drie cijfers na de komma geen betekenis hebben. (Afgerond) is onze foutenmarge ongeveer 1V zodat het eerlijker is om te schrijven $53 \pm 1V$. Dat ziet er minder indrukwekkend uit dan $53,067$, maar het geeft een realistisch beeld en dat is voor de ingenieur en haar klant belangrijker.
 
 Het juist noteren van een meetresultaat gebeurt door het gebruik van \emph{beduidende cijfers}. De naam zegt het zelf: we beperken ons tot die cijfers die iets zinvol betekenen. Het regels om het aantal beduidende cijfers te gebruiken zijn eenvoudig en ze laten ook wat ruimte tot keuze. De basis is de \emph{relatieve fout}. Dit is de verhouding van de \emph{absolute fout} tot de \emph{meetwaarde}. Bij voorbeeld: bij de meting van 230V in het meetbereik van 300V met een klasse 0,5 FS voltmeter, is de absolute fout 1,5V en de relatieve fout $\dfrac{1,5}{230}=0,0065... \approx 1\%$. Bij de meting van 53V in het meetbereik 60V, klasse 0,5 FS is de absolute fout 0,3V en de relatieve fout $\dfrac{0,3}{53}=0,0094... \approx 1\%$. De vuistregels voor het bepalen van het aantal \emph{beduidende cijfers} zijn\sidenote{Meest voorkomende situaties}:
+
+\medskip
 \begin{itemize}
   \item relatieve fout tussen 0,001\% en 0,01\%: 5 beduidende cijfers
   \item relatieve fout tussen 0,01\% en 0,1\%: 4 beduidende cijfers
@@ -108,12 +110,14 @@ Het juist noteren van een meetresultaat gebeurt door het gebruik van \emph{bedui
   \item relatieve fout tussen 1\% en 10\%: 2 beduidende cijfers
 \end{itemize}
 
-Alle cijfers \textbf{behalve voorafgaande nullen} zijn beduidend: 27,64 heeft vier beduidende cijfers; 2,531 heeft er vier; 0,119 heeft er drie; en 0,021 heeft er twee. Bij getallen met een komma worden \textbf{afsluitende nullen} als beduidend gezien: 4700,0; 271,00 en 15,210 hebben allemaal vijf significante cijfers. 
+\medskip
+Alle cijfers \textbf{behalve voorafgaande nullen} zijn beduidend: 27,64 heeft vier beduidende cijfers; 2,531 heeft er vier; 0,119 heeft er drie; en 0,021 heeft er twee. Bij getallen met een komma worden \textbf{afsluitende nullen} als beduidend gezien: 4700,0; 271,00 en 15,210 hebben allemaal vijf beduidende cijfers. 
 
-Er stelt zich dan een probleem met getallen zonder komma die eindigen op \'e\'en of meerdere nullen. Wanneer we 231V schrijven is het duidelijk dat we die laatste 1V als beduidend beschouwen. Maar wanneer we 230V schrijven is het niet altijd duidelijk of we die laatste ''0" als beduidende beschouwen. Dat kunnen we ondubbelzinnig duidelijk maken door gebruik te maken van de wetenschappelijke notatie. Bij de meting van 230V was onze relatieve fout $0,0065=0,65\%$. Dat betekent dat we gaan werken met 3 beduidende cijfers. Dan noteren we onze meetwaarde als $0,230.10^{3}=0,230kV$\sidenote{De regels voor het aantal beduidende cijfers zeggen ons dat 0,230 3 beduidende cijfers heeft}. De notatie met foutenmarge wordt dan: $0,230.10^{3} \pm 0,02.10^{3} kV$\sidenote{De absolute fout van 1,5V wordt afgerond op 2V omdat het minst beduidende cijfer van het resulaat in Volt is} 
+\medskip
+Er stelt zich dan een probleem met getallen zonder komma die eindigen op \'e\'en of meerdere nullen. Wanneer we 231V schrijven is het duidelijk dat we die laatste 1V als beduidend beschouwen. Maar wanneer we 230V schrijven is het niet altijd duidelijk of we die laatste ''0" als beduidend beschouwen. Dat kunnen we ondubbelzinnig duidelijk maken door gebruik te maken van de wetenschappelijke notatie. Bij de meting van 230V was onze relatieve fout $0,0065=0,65\%$. Dat betekent dat we gaan werken met 3 beduidende cijfers. Dan noteren we onze meetwaarde als $0,230.10^{3}=0,230kV$\sidenote{De regels voor het aantal beduidende cijfers zeggen ons dat 0,230 3 beduidende cijfers heeft}. De notatie met foutenmarge wordt dan: $0,230.10^{3} \pm 0,02.10^{3} V$\sidenote{De absolute fout van 1,5V wordt afgerond op 2V omdat het minst beduidende cijfer van het resulaat in Volt is} 
 
 \subsection{Rekenen met meetresultaten die een foutenmarge hebben}
-Wanneer je meetgegevens, die een bepaalde foutenmarge hebben, gaat gebruiken bij berekeningen dan is de vraag wat de fout is op de berekende waarde. Bij een som is dat duidelijk: als je eerste meetwaarde $x_{1}=100 \pm 1cm$ is dan ligt de ware lengte in het interval $[99cm, 101cm]$. Als de tweede meetwaarde $x_{2}=54 \pm 1cm$ is, dan is het interval $[53cm, 55cm]$. Het is mogelijk dat de ware waarde telkens het minimum is: 99cm en 53cm. Dan is de echte waarde van de som: 152cm. Maar het is ook mogelijk dat de ware waarde in beide gevallen het maximum is: 101cm en 55 cm. Dan is de echte waarde van de som: 156cm. Het interval van de som moet dus gelijk zijn aan $[152cm 156cm]$, of anders gezegd: de absolute fout op de som (2cm) is gelijk aan de som van de absolute fouten van de termen $x_{1}$ en $x_{2}$:
+Wanneer je meetgegevens, die een bepaalde foutenmarge hebben, gaat gebruiken bij berekeningen dan is de vraag wat de fout is op de berekende waarde. Bij een som is dat duidelijk: als je eerste meetwaarde $x_{1}=100 \pm 1cm$ is dan ligt de ware lengte in het interval $[99cm, 101cm]$. Als de tweede meetwaarde $x_{2}=54 \pm 1cm$ is, dan is het interval $[53cm, 55cm]$. Het is mogelijk dat de ware waarde bij de twee metingen het minimum is: 99cm en 53cm. Dan is de echte waarde van de som 152cm. Maar het zou ook kunnen dat de ware waarde bij de twee metingen het maximum is: 101cm en 55 cm. Dan is de echte waarde van de som 156cm. Het interval van de som moet dus gelijk zijn aan $[152cm, 156cm]$, of anders gezegd: de absolute fout op de som (2cm) is gelijk aan de som van de absolute fouten van de termen $x_{1}$ en $x_{2}$:
 \begin{equation}
   AF[x_{1}+x_{2}]=AF[x_{1}]+AF[x_{2}]
 \end{equation}
@@ -137,13 +141,13 @@ Zo zijn er ook rekenregels opgesteld voor de andere basisbewerkingen ''vermenigv
 \end{split}
 \end{equation}
 
-Maar wat moeten we doen bij andere functies: $e^{x}$, $\cos(x)$, ... Telkens aparte rekenregels afleiden wordt snel onoverzichtelijk. De statistiek geeft een alternatief.
+Maar wat moeten we doen bij andere functies: $e^{x}$, $\cos(x)$, ...? Telkens aparte rekenregels afleiden wordt snel onoverzichtelijk. De statistiek geeft een alternatief.
 
 \subsection{Statistische behandeling van meetresultaten en foutenmarges}
 
 In de voorbeelden van de bewerkingen ''som" en ''verschil" werd gezegd: ''Het zou kunnen gebeuren dat de eerste meting het minimum van het interval als resultaat geeft, en de tweede meting het maximum". De uitdrukking ''Het zou kunnen gebeuren" wijst erop dat de meetwaarden $x_{1}$ en $x_{2}$ kunnen beschouwd worden als toevalsveranderlijken waarvan de waarden gelegen zijn in het interval bepaald door de meetwaarde en de absolute fout.\sidenote{Hoe de kansverdeling er binnen dat interval uitziet komt hier niet ter sprake}
 
-Een toevalsveranderlijke $X$ met een kansverdeling $f(X)$ heeft een gemiddelde waarde $E(X)$ en een variantie $var(X)$. Binnen de statistiek zijn rekenregels afgeleid die we kunnen toepassingen wanneer we bewerkingen doen. Een belangrijk regel is dat:
+Een toevalsveranderlijke $X$ met een kansverdeling $f(X)$ heeft een gemiddelde waarde $E(X)$ en een variantie $var(X)$. Binnen de statis\-tiek zijn rekenregels afgeleid die we kunnen toepassingen wanneer we bewerkingen doen. Een belangrijk regel is dat:
 
 \begin{itemize}
 \item wanneer toevalsveranderlijke $X_{1}$ een gemiddelde waarde $E(X_{1})=\mu_{1}$ heeft en een variantie $var(X_{1})=\sigma_{1}^{2}$
@@ -157,7 +161,7 @@ Een toevalsveranderlijke $X$ met een kansverdeling $f(X)$ heeft een gemiddelde w
 \end{equation}
 \end{itemize}
 
-De laatste term bevat $\sigma_{12}$. Dit is de co-variantie van $X_{1}$ en $X_{2}$. Indien de kansveranderlijken $X_{1}$ en $X_{2}$ \emph{onafhankelijk} zijn, dan is de covariantie gelijk aan nul en wordt de formule voor de variantie van de lineaire combinatie:
+De laatste term bevat $\sigma_{12}$. Dit is de covariantie van $X_{1}$ en $X_{2}$. Indien de kansveranderlijken $X_{1}$ en $X_{2}$ \emph{onafhankelijk} zijn, dan is de covariantie gelijk aan nul en wordt de formule voor de variantie van de lineaire combinatie:
 \begin{equation}
   var(Y)=c_{1}^{2}\sigma_{1}^{2}+c_{2}^{2}\sigma_{2}^{2}
 \end{equation}
@@ -218,7 +222,7 @@ E=\dfrac{\Delta F.(L_{2}-L_{1}).L_{1}^{2}}{32.\Delta y \dfrac{bh^{3}}{12}}=\dfra
 \end{equation}
 
 De meetresultaten zijn:
-<<>>=
+<<echo=FALSE>>=
 L1 <- 240
 L2 <- 460
 b <- 50.14
@@ -230,14 +234,42 @@ Meetwaarden <- data.frame(nr=seq(1:8),
                           delta_y=c(1.839, 1.841, 1.832, 1.830, 1.843, 1.839, 1.841, 1.833))
 @
 
-Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa):
+\medskip
+\begin{tabular}{r r r r r r r r r r r}
+L1 & $\Sexpr{L1}$mm & & & & & & & & & \\
+L2 & $\Sexpr{L2}$mm & & & & & & & & &\\
+b & $\Sexpr{b}$mm & & & & & & & & &\\
+h & $\Sexpr{h}$mm & & & & & & & & &\\
+\hline 
+F1 & $\Sexpr{Meetwaarden$F1[1]}$mm & $\Sexpr{Meetwaarden$F1[2]}$mm & $\Sexpr{Meetwaarden$F1[3]}$mm & $\Sexpr{Meetwaarden$F1[4]}$mm & $\Sexpr{Meetwaarden$F1[5]}$mm & $\Sexpr{Meetwaarden$F1[6]}$mm & $\Sexpr{Meetwaarden$F1[7]}$mm & $\Sexpr{Meetwaarden$F1[8]}$mm\\
+F2 & $\Sexpr{Meetwaarden$F2[1]}$mm & $\Sexpr{Meetwaarden$F2[2]}$mm & $\Sexpr{Meetwaarden$F2[3]}$mm & $\Sexpr{Meetwaarden$F2[4]}$mm & $\Sexpr{Meetwaarden$F2[5]}$mm & $\Sexpr{Meetwaarden$F2[6]}$mm & $\Sexpr{Meetwaarden$F2[7]}$mm & $\Sexpr{Meetwaarden$F2[8]}$mm\\
+$\Delta$ y & $\Sexpr{Meetwaarden$delta_[1]}$mm & $\Sexpr{Meetwaarden$delta_[2]}$mm & $\Sexpr{Meetwaarden$delta_[3]}$mm & $\Sexpr{Meetwaarden$delta_[4]}$mm & $\Sexpr{Meetwaarden$delta_[5]}$mm & $\Sexpr{Meetwaarden$delta_[6]}$mm & $\Sexpr{Meetwaarden$delta_[7]}$mm & $\Sexpr{Meetwaarden$delta_[8]}$mm
+\label{tab:meetwaarden}
+\end{tabular}
+
+\newpage
+Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen:
 <<echo=FALSE>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+sigmaE <- sd(Meetwaarden$E)
 @
 
-<<>>=
-Meetwaarden
-@
+\medskip
+\begin{tabular}{c}
+E (GPa) \\
+\hline
+$\Sexpr{round(Meetwaarden$E[1],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[2],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[3],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[4],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[5],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[6],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[7],3)}$ \\
+$\Sexpr{round(Meetwaarden$E[8],3)}$ \\
+\hline
+$\Sexpr{round(mean(Meetwaarden$E),3)}$
+\label{tab:E}
+\end{tabular}
 
 \subsection{Foutenberekening}
 
@@ -284,7 +316,7 @@ Fouten$Totaal <- Fouten$deltaF + Fouten$deltaL + Fouten$L1 +
                 Fouten$deltay + Fouten$b + Fouten$h
 Fouten$Abs.fout.E <- sqrt(Fouten$Totaal)
 @
-
+\newpage
 <<>>=
 Fouten
 @
@@ -296,7 +328,7 @@ $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E)
 
 \subsection{Procentuele verdeling van de meetfouten}
 Je kan nu gemakkelijk zien welke fouten het meeste invloed hebben door de procentuele verdeling van de totale fout (kwadraat) over de verschillende foutonderdelen te berekenen:
-<<>>=
+<<echo=FALSE>>=
 Perc <- data.frame(p.deltaF=rep(0,8), p.deltaL=rep(0,8), 
                    p.L1=rep(0,8), p.deltay=rep(0,8), 
                    p.b=rep(0,8), p.h=rep(0,8))
@@ -306,11 +338,17 @@ Perc$p.L1 <- round(100*Fouten$L1/Fouten$Totaal,2)
 Perc$p.deltay <- round(100*Fouten$deltay/Fouten$Totaal,2)
 Perc$p.b <- round(100*Fouten$b/Fouten$Totaal,2)
 Perc$p.h <- round(100*Fouten$h/Fouten$Totaal,2)
+@
+
+\medskip
+<<echo=FALSE>>=
 Perc
 @
 
+\medskip
 \textbf{Het overgrote deel (bijna 80\%) van de meetfout is afkomstig van de meting van de krachten.}
 
+\newpage
 \section{Meetwaarden met gepaste beduidende cijfers}
 
 Onze conclusie was dat $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$. Maar we hebben gezien dat dit aantal decimalen een onjuiste indruk van nauwkeurigheid geeft. Eigenlijk moeten we werken met de meetresulaten \textbf{met de gepaste beduidende cijfers}. Hoeveel beduidende cijfers we voor elke meetwaarde in rekening brengen hangt af van de relatieve fout op de meting:
@@ -346,10 +384,25 @@ Meetwaarden <- data.frame(nr=seq(1:8),
 Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen (in GPa). Aangezien het aantal beduidende cijfers voor $F_{1}$ gelijk is aan 2, kan het aantal beduidende cijfers voor $E$ ook maar 2 zijn.
 <<echo=FALSE>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
+sigmaEbc <- sd(Meetwaarden$E)
 @
-<<>>=
-Meetwaarden
-@
+
+\medskip
+\begin{tabular}{c}
+E (GPa) \\
+\hline
+$\Sexpr{signif(Meetwaarden$E[1],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[2],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[3],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[4],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[5],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[6],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[7],2)}$ \\
+$\Sexpr{signif(Meetwaarden$E[8],2)}$ \\
+\hline
+$\Sexpr{signif(mean(Meetwaarden$E),2)}$
+\label{tab:Ebeduidendecijfers}
+\end{tabular}
 
 <<echo=FALSE>>=
 # Absolute fouten van de meettoestellen
@@ -372,24 +425,60 @@ Fouten$Totaal <- Fouten$deltaF + Fouten$deltaL + Fouten$L1 +
                 Fouten$deltay + Fouten$b + Fouten$h
 Fouten$Abs.fout.E <- sqrt(Fouten$Totaal)
 @
+
+\medskip
 <<>>=
 Fouten$Abs.fout.E
 @
 
 De absolute fout met 2 beduidende cijfers is dus \textbf{6.0 GPa}, afgerond \textbf{0.01e03 GPa}.
 
-Conclusie \textbf{E=0.22e03 $\pm$ 0.01e03 GPa}
+Conclusie:
+
+\textbf{E=0.22e03 $\pm$ 0.01e03 GPa} of het \textbf{interval voor E is $[0.21GPa, 0.23GPa]$}.
 
 
-\section{Nog resterende vragen}
+\section{Intervalgrootte en spreiding van de meetresultaten}
 
-\begin{enumerate}
-  \item Geeft dat interval de absolute zekerheid dat de waarheid daar binnen ligt? (betrouwbaarheid 100\%)?
-  \item Wat is het verband tussen de meetfout en de variantie van de meetresultaten?
-  \item Is de kansverdeling binnen het berekende interval uniform? normaal? iets anders?
-  \item In het algemeen: band tussen meetfouten en statistiek
-\end{enumerate}
+Wanneer we de berekende waarden van E bekijken in tabel~\ref{tab:E} dan is de spreiding daarvan vrij klein (de berekende waarde is $\Sexpr{round(sigmaE,3)}$) en ook de spreiding bij de berekening met de beduidende cijfers is klein ($\Sexpr{round(sigmaEbc,3)}$). In ieder geval is het verschil met de \emph{intervalgrootte} enorm want die ($6GPa$) is meer dan 10 keer groter.
 
+De reden is het verschil tussen \emph{accuraatheid} en \emph{precisie}. \emph{Accuraatheid} zegt iets over hoe dicht de gemeten waarde zit bij de ''echte" waarde. Je kan weliswaar nooit de ''ware" waarde achterhalen, maar je kan wel de meetwaarde van je toestel vergelijking met een ijkingsbron, of met de meetwaarde van een apparaat met een hogere nauwkeurigheid. Wanneer we de meetwaarden van een voltmeter met klasse 1 FS uitzetten i.f.v. de meetwaarden van dezelfde spanningen met een voltmeter met klasse 0,1 FS (beide in meetbereik 60V) dan krijgen we een tabel die er (vereenvoudigd) als volt uitziet;
+
+\medskip
+\begin{tabular}{r r r}
+ware waarde (V) & klasse1 & klasse 0,1 \\
+\hline
+10,02 & 10,4 & 10,0 \\
+20,04 & 19,7 & 20,0 \\
+30,01 & 29,7 & 30,0 \\
+40,08 & 36 & 40,0 \\
+50,03 & 49,6 & 50,0 \\
+59,98 & 60,5 & 60,0 \\
+\hline
+\label{tab:voltmeter}
+\end{tabular}
+
+Er zijn verschillen tussen de te ijken voltmeter en de referentie-voltmeter. Je kan met deze tabel de metingen met de voltmeter klasse 1 verbeteren, maar dat vergt wel rekenwerk en een keuze van een interpollatieformule (wat ook fouten met zich meebrengt). In de regel gaat men dus een totaaloordeel over de meter geven onder de vorm van een klasse. Als we de absolute en de relatieve fout t.o.v. het ijktoestel berekenen voor elke ijkwaarde dan krijgen we:
+
+\medskip
+\begin{tabular}{r r r r r}
+ware waarde (V) & klasse1 & klasse 0,1 & abs.fout(V) & rel.fout(\%)\\
+\hline
+10,02 & 10,1 & 10,0 & 0,1 & 1\\
+20,04 & 19,7 & 20,0 & 0,3 & 1,5\\
+30,01 & 29,7 & 30,0 & 0,3 & 1\\
+40,08 & 39,8 & 40,0 & 0,2 & 0,5\\
+50,03 & 49,6 & 50,0 & 0,4 & 0,8 \\
+59,98 & 60,5 & 60,0 & 0,5 & 0,83\\
+\hline
+\label{tab:voltmeter}
+\end{tabular}
+
+In deze fouten zitten zowel de \emph{systematische fouten} (bij voorbeeld het niet lineair zijn van het tegenwerkend koppel dat geleverd wordt door een veer en de draaihoek van de naald, de temperatuursgevoeligheid van de voorschakelweerstand die in de voltmeter zit) als \emph{toevallige fouten} (de onnauwkeurige aflezing bij de ijking). In dit geval lijkt een klasse 1 aanvaardbaar, ook al is de meter nauwkeuriger bij hogere spanningen.
+
+Bij de meting van de \emph{elasticiteitsmodulus bij buiging} zien we in de foutenanalyse (maar ook bij het bepalen van de relatieve fouten en het aantal beduidende cijfers) dat de nauwkeurigheid van het totaal vooral bepaald wordt door de krachtmeting bij lage waarden. Daar hebben we een relatieve fout van 5\%. Dat is wellicht het gevolg van hoe de kracht omgezet wordt naar een meting in N. Indien dit bij voorbeeld gebeurt door een vervorming, dan is het niet vreemd dat bij lage belasting die vervorming niet lineair verloopt. We hebben hier dus wellicht te maken met een grote kans op \emph{systematische fouten}. Die kan je door herhaalde metingen niet verbeteren.
+
+Aangezien we de herhalingsmetingen doen bij waarden van $F_{1}$ die zich in dezelfde zone bevinden (ongeveer 1000N) zal de systematische fout daar bij elke meting ongeveer gelijk zijn. Het enige dat dan leidt tot andere meetwaarden zijn de \emph{toevallige fouten}. Maar wanneer we die proeven vrij snel na elkaar doen en door dezelfde persoon worden hierdoor een aantal \emph{toevallige fouten} kleiner: temperatuursinvloeden zullen niet spelen, afleesmethode zal altijd dezelfde zijn enz. Daardoor krijgen we een grote \emph{precisie}: de meetwaarden liggen dicht bij elkaar. Hetzelfde geldt voor de metingen van $F_{2}$ en $\Delta y$. De berekende waarden van $E$ liggen dan ook dicht bij elkaar, maar dit geeft een vertekend beeld van nauwkeurigheid omdat de \emph{systematische fouten} verborgen zitten.
 
 \newpage
 \textbf{Thanks} \\
