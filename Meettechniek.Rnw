@@ -191,31 +191,31 @@ AF(f(x_{1},x_{2}))=\sqrt{(\frac{\partial f}{\partial x_{1}}(x_{1,0},x_{2,0})^{2}
 Als $X_{1}$ bij voorbeeld een temperatuur is gemeten met een thermokoppel, en $X_{2}$ is een lengte gemeten met een micrometer dan is er geen reden om aan te nemen dat de fout die we maken bij de meting met het thermokoppel van invloed zou kunnen zijn op de fout bij de lengtemeting. Ze zijn onafhankelijk van elkaar.
 
 \newpage
-\subsection{Enkele voorbeelden}
+\section{Enkele voorbeelden}
 
-\newthought{De som en verschil} van twee veranderlijken: $f(x,y)= x \pm y$
+\subsection{De som en verschil} van twee veranderlijken: $f(x,y)= x \pm y$
 \begin{equation}
 AF(df(x,y))=\sqrt{1.dx^{2} + 1.dy^{2}}
 \end{equation}
 
-\newthought{Macht} van een veranderlijke: $f(x)= x^{n}$
+\subsection{Macht} van een veranderlijke: $f(x)= x^{n}$
 \begin{equation}
 AF(df(x))=\sqrt{(nx^{n-1})^{2}dx^{2}}
 \end{equation}
 
-\newthought{Het product} van twee veranderlijken: $f(x,y)=x.y$
+\subsection{Het product} van twee veranderlijken: $f(x,y)=x.y$
 \begin{equation}
 AF(df(x,y))=\sqrt{y^{2}.dx^{2} + x^{2}.dy^{2}}
 \end{equation}
 
-\newthought{Meer algemene functie}: $f(x,y,z)=3.\frac{x^{2}.\sqrt{y}}{z^{3}}$
+\subsection{Meer algemene functie}: $f(x,y,z)=3.\frac{x^{2}.\sqrt{y}}{z^{3}}$
 \begin{equation}
 AF(df(x,y,z))=\sqrt{(3\frac{\sqrt{y}}{z^{3}}.2x.dx)^{2} + (3\frac{x^{2}}{z^{3}}.\frac{1}{2}\frac{1}{\sqrt{y}}.dy)^{2} + (3x^{2}\sqrt{y}.(-3\frac{1}{z^{4}}).dz)^{2}}
 \end{equation}
 
-\section{Toepassing}
+\chapter{Toepassing}
 
-\subsection{Elasticiteitsmodulus bij buiging}
+\section{Elasticiteitsmodulus bij buiging}
 \begin{equation}
 E=\dfrac{\Delta F.(L_{2}-L_{1}).L_{1}^{2}}{32.\Delta y \dfrac{bh^{3}}{12}}=\dfrac{\Delta F.\Delta L.L_{1}^{3}}{32.\Delta y \dfrac{bh^{3}}{12}}
 \label{eq:elasticiteitsmodulus}
@@ -235,6 +235,8 @@ Meetwaarden <- data.frame(nr=seq(1:8),
 @
 
 \medskip
+\begin{table}
+\centering
 \begin{tabular}{r r r r r r r r r r r}
 L1 & $\Sexpr{L1}$mm & & & & & & & & & \\
 L2 & $\Sexpr{L2}$mm & & & & & & & & &\\
@@ -246,8 +248,8 @@ F2 & $\Sexpr{Meetwaarden$F2[1]}$mm & $\Sexpr{Meetwaarden$F2[2]}$mm & $\Sexpr{Mee
 $\Delta$ y & $\Sexpr{Meetwaarden$delta_[1]}$mm & $\Sexpr{Meetwaarden$delta_[2]}$mm & $\Sexpr{Meetwaarden$delta_[3]}$mm & $\Sexpr{Meetwaarden$delta_[4]}$mm & $\Sexpr{Meetwaarden$delta_[5]}$mm & $\Sexpr{Meetwaarden$delta_[6]}$mm & $\Sexpr{Meetwaarden$delta_[7]}$mm & $\Sexpr{Meetwaarden$delta_[8]}$mm
 \label{tab:meetwaarden}
 \end{tabular}
+\end{table}
 
-\newpage
 Met formule~\ref{eq:elasticiteitsmodulus} kunnen we de waarden van de \emph{elasticiteitsmodulus} $E$ berekenen:
 <<echo=FALSE>>=
 Meetwaarden %>% mutate(E=0.001*cnst*(F2-F1)/delta_y) -> Meetwaarden
@@ -255,23 +257,26 @@ sigmaE <- sd(Meetwaarden$E)
 @
 
 \medskip
-\begin{tabular}{c}
-E (GPa) \\
+\begin{table}
+\centering
+\begin{tabular}{l c}
+meting & E (GPa) \\
 \hline
-$\Sexpr{round(Meetwaarden$E[1],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[2],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[3],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[4],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[5],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[6],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[7],3)}$ \\
-$\Sexpr{round(Meetwaarden$E[8],3)}$ \\
+1 & $\Sexpr{round(Meetwaarden$E[1],3)}$ \\
+2 & $\Sexpr{round(Meetwaarden$E[2],3)}$ \\
+3 & $\Sexpr{round(Meetwaarden$E[3],3)}$ \\
+4 & $\Sexpr{round(Meetwaarden$E[4],3)}$ \\
+5 & $\Sexpr{round(Meetwaarden$E[5],3)}$ \\
+6 & $\Sexpr{round(Meetwaarden$E[6],3)}$ \\
+7 & $\Sexpr{round(Meetwaarden$E[7],3)}$ \\
+8 & $\Sexpr{round(Meetwaarden$E[8],3)}$ \\
 \hline
-$\Sexpr{round(mean(Meetwaarden$E),3)}$
+gemiddelde & $\Sexpr{round(mean(Meetwaarden$E),3)}$
 \label{tab:E}
 \end{tabular}
+\end{table}
 
-\subsection{Foutenberekening}
+\section{Foutenberekening}
 
 De verschillende parti\"ele afgeleiden zijn:
 \begin{equation}
@@ -326,7 +331,7 @@ De gemiddelde absolute fout is: $\Sexpr{round(mean(Fouten$Abs.fout.E),3)}GPa$.
 \textbf{Op basis van deze metingen zou de conclusie kunnen zijn dat}
 $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$
 
-\subsection{Procentuele verdeling van de meetfouten}
+\section{Procentuele verdeling van de meetfouten}
 Je kan nu gemakkelijk zien welke fouten het meeste invloed hebben door de procentuele verdeling van de totale fout (kwadraat) over de verschillende foutonderdelen te berekenen:
 <<echo=FALSE>>=
 Perc <- data.frame(p.deltaF=rep(0,8), p.deltaL=rep(0,8), 
@@ -353,6 +358,8 @@ Perc
 
 Onze conclusie was dat $E=\Sexpr{round(mean(Meetwaarden$E),3)} \pm \Sexpr{round(mean(Fouten$Abs.fout.E),3)} (GPa)$. Maar we hebben gezien dat dit aantal decimalen een onjuiste indruk van nauwkeurigheid geeft. Eigenlijk moeten we werken met de meetresulaten \textbf{met de gepaste beduidende cijfers}. Hoeveel beduidende cijfers we voor elke meetwaarde in rekening brengen hangt af van de relatieve fout op de meting:
 
+\begin{table}
+\centering
 \begin{tabular}{r r r r r r}
 variabele & meetwaarde & abs.fout & rel.fout & beduidende cijfers & notering \\
 L1 & 240mm & 1mm & 0,4\% & 3 & 0,240m \\
@@ -362,6 +369,7 @@ h & 9,88mm & 0,01mm & 0,1\% & 3 & 9,88mm \\
 F1 & 962N & 50N & 5\% & 2 & 0,96kN \\
 F2 & 5045N & 50N & 1\% & 3 & 5,05kN
 \end{tabular}
+\end{table}
 
 <<echo=FALSE>>=
 L1 <- 240 # rel.ft = 0.4%  dus 3BC
@@ -388,21 +396,24 @@ sigmaEbc <- sd(Meetwaarden$E)
 @
 
 \medskip
-\begin{tabular}{c}
-E (GPa) \\
+\begin{table}
+\centering
+\begin{tabular}{l c}
+meting &E (GPa) \\
 \hline
-$\Sexpr{signif(Meetwaarden$E[1],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[2],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[3],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[4],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[5],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[6],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[7],2)}$ \\
-$\Sexpr{signif(Meetwaarden$E[8],2)}$ \\
+1 & $\Sexpr{signif(Meetwaarden$E[1],2)}$ \\
+2 & $\Sexpr{signif(Meetwaarden$E[2],2)}$ \\
+3 & $\Sexpr{signif(Meetwaarden$E[3],2)}$ \\
+4 & $\Sexpr{signif(Meetwaarden$E[4],2)}$ \\
+5 & $\Sexpr{signif(Meetwaarden$E[5],2)}$ \\
+6 & $\Sexpr{signif(Meetwaarden$E[6],2)}$ \\
+7 & $\Sexpr{signif(Meetwaarden$E[7],2)}$ \\
+8 & $\Sexpr{signif(Meetwaarden$E[8],2)}$ \\
 \hline
-$\Sexpr{signif(mean(Meetwaarden$E),2)}$
+gemiddelde & $\Sexpr{signif(mean(Meetwaarden$E),2)}$
 \label{tab:Ebeduidendecijfers}
 \end{tabular}
+\end{table}
 
 <<echo=FALSE>>=
 # Absolute fouten van de meettoestellen
@@ -442,41 +453,49 @@ Conclusie:
 
 Wanneer we de berekende waarden van E bekijken in tabel~\ref{tab:E} dan is de spreiding daarvan vrij klein (de berekende waarde is $\Sexpr{round(sigmaE,3)}$) en ook de spreiding bij de berekening met de beduidende cijfers is klein ($\Sexpr{round(sigmaEbc,3)}$). In ieder geval is het verschil met de \emph{intervalgrootte} enorm want die ($6GPa$) is meer dan 10 keer groter.
 
-De reden is het verschil tussen \emph{accuraatheid} en \emph{precisie}. \emph{Accuraatheid} zegt iets over hoe dicht de gemeten waarde zit bij de ''echte" waarde. Je kan weliswaar nooit de ''ware" waarde achterhalen, maar je kan wel de meetwaarde van je toestel vergelijking met een ijkingsbron, of met de meetwaarde van een apparaat met een hogere nauwkeurigheid. Wanneer we de meetwaarden van een voltmeter met klasse 1 FS uitzetten i.f.v. de meetwaarden van dezelfde spanningen met een voltmeter met klasse 0,1 FS (beide in meetbereik 60V) dan krijgen we een tabel die er (vereenvoudigd) als volt uitziet;
+De reden is het verschil tussen \emph{accuraatheid} en \emph{precisie}. \emph{Accuraatheid} zegt iets over hoe dicht de gemeten waarde zit bij de ''echte" waarde. Je kan weliswaar nooit de ''ware" waarde achterhalen, maar je kan wel de meetwaarde van je toestel vergelijking met een ijkingsbron, of met de meetwaarde van een apparaat met een hogere nauwkeurigheid. Wanneer we de meetwaarden van een voltmeter met klasse 1 FS uitzetten i.f.v. de meetwaarden van dezelfde spanningen met een voltmeter met klasse 0,1 FS (beide in meetbereik 60V) dan krijgen we een tabel die er (vereenvoudigd) als volgt uitziet;
 
 \medskip
+\begin{table}
+\centering
 \begin{tabular}{r r r}
 ware waarde (V) & klasse1 & klasse 0,1 \\
 \hline
 10,02 & 10,4 & 10,0 \\
 20,04 & 19,7 & 20,0 \\
 30,01 & 29,7 & 30,0 \\
-40,08 & 36 & 40,0 \\
+40,04 & 39.6 & 40,0 \\
 50,03 & 49,6 & 50,0 \\
 59,98 & 60,5 & 60,0 \\
 \hline
 \label{tab:voltmeter}
 \end{tabular}
+\end{table}
 
 Er zijn verschillen tussen de te ijken voltmeter en de referentie-voltmeter. Je kan met deze tabel de metingen met de voltmeter klasse 1 verbeteren, maar dat vergt wel rekenwerk en een keuze van een interpollatieformule (wat ook fouten met zich meebrengt). In de regel gaat men dus een totaaloordeel over de meter geven onder de vorm van een klasse. Als we de absolute en de relatieve fout t.o.v. het ijktoestel berekenen voor elke ijkwaarde dan krijgen we:
 
 \medskip
+\begin{table}
+\centering
 \begin{tabular}{r r r r r}
 ware waarde (V) & klasse1 & klasse 0,1 & abs.fout(V) & rel.fout(\%)\\
 \hline
-10,02 & 10,1 & 10,0 & 0,1 & 1\\
+10,02 & 10,4 & 10,0 & 0,4 & 4\\
 20,04 & 19,7 & 20,0 & 0,3 & 1,5\\
 30,01 & 29,7 & 30,0 & 0,3 & 1\\
-40,08 & 39,8 & 40,0 & 0,2 & 0,5\\
+40,04 & 39,6 & 40,0 & 0,4 & 1\\
 50,03 & 49,6 & 50,0 & 0,4 & 0,8 \\
 59,98 & 60,5 & 60,0 & 0,5 & 0,83\\
 \hline
 \label{tab:voltmeter}
 \end{tabular}
+\end{table}
 
-In deze fouten zitten zowel de \emph{systematische fouten} (bij voorbeeld het niet lineair zijn van het tegenwerkend koppel dat geleverd wordt door een veer en de draaihoek van de naald, de temperatuursgevoeligheid van de voorschakelweerstand die in de voltmeter zit) als \emph{toevallige fouten} (de onnauwkeurige aflezing bij de ijking). In dit geval lijkt een klasse 1 aanvaardbaar, ook al is de meter nauwkeuriger bij hogere spanningen.
+In deze fouten zitten zowel de \emph{systematische fouten} (bij voorbeeld het niet lineair zijn van het tegenwerkend koppel dat geleverd wordt door een veer en de draaihoek van de naald, de temperatuursgevoeligheid van de voorschakelweerstand die in de voltmeter zit) als \emph{toevallige fouten} (de onnauwkeurige aflezing bij de ijking). In dit geval lijkt een klasse 1 aanvaardbaar want er is geen enkele absolute ijkingsfout groter dan 0,6V\sidenote{Alles hangt natuurlijk af van de nauwkeurigheid van het ijktoestel. Dat moet op zijn beurt geijkt worden t.o.v. een nog nauwkeuriger toestel, of uiteindelijk, vergeleken worden met de ultieme standaard die internationaal gedefinieerd is}
 
-Bij de meting van de \emph{elasticiteitsmodulus bij buiging} zien we in de foutenanalyse (maar ook bij het bepalen van de relatieve fouten en het aantal beduidende cijfers) dat de nauwkeurigheid van het totaal vooral bepaald wordt door de krachtmeting bij lage waarden. Daar hebben we een relatieve fout van 5\%. Dat is wellicht het gevolg van hoe de kracht omgezet wordt naar een meting in N. Indien dit bij voorbeeld gebeurt door een vervorming, dan is het niet vreemd dat bij lage belasting die vervorming niet lineair verloopt. We hebben hier dus wellicht te maken met een grote kans op \emph{systematische fouten}. Die kan je door herhaalde metingen niet verbeteren.
+Wanneer we nu herhaaldelijk metingen doen in de buurt van de ware 10V, dan zal onze meter altijd waarden aangeven in de buurt van 10,4V. Er zullen kleine verschillen zijn wanneer we die metingen laten doen door verschillende personen, of op verschillende tijdsstippen (bij voorbeeld: 's morgens en 's avonds bij verschillende omgevingstemperaturen). Maar het uitvoeren van meerderen metingen zal de \emph{systematische fout} niet kunnen verminderen. Onze absolute fout blijft dus in de buurt van 0,4V en de relatieve fout in de buurt van 4\%.
+
+Bij de meting van de \emph{elasticiteitsmodulus bij buiging} zien we in de foutenanalyse (maar ook bij het bepalen van de relatieve fouten en het aantal beduidende cijfers) dat de nauwkeurigheid van het totaal vooral bepaald wordt door de krachtmeting bij lage waarden. Daar hebben we een relatieve fout van 5\%. Dat is wellicht het gevolg van hoe de kracht omgezet wordt naar een meting in N. We hebben hier dus wellicht te maken met een grote kans op \emph{systematische fouten}. Die kan je door herhaalde metingen niet verbeteren.
 
 Aangezien we de herhalingsmetingen doen bij waarden van $F_{1}$ die zich in dezelfde zone bevinden (ongeveer 1000N) zal de systematische fout daar bij elke meting ongeveer gelijk zijn. Het enige dat dan leidt tot andere meetwaarden zijn de \emph{toevallige fouten}. Maar wanneer we die proeven vrij snel na elkaar doen en door dezelfde persoon worden hierdoor een aantal \emph{toevallige fouten} kleiner: temperatuursinvloeden zullen niet spelen, afleesmethode zal altijd dezelfde zijn enz. Daardoor krijgen we een grote \emph{precisie}: de meetwaarden liggen dicht bij elkaar. Hetzelfde geldt voor de metingen van $F_{2}$ en $\Delta y$. De berekende waarden van $E$ liggen dan ook dicht bij elkaar, maar dit geeft een vertekend beeld van nauwkeurigheid omdat de \emph{systematische fouten} verborgen zitten.
 
